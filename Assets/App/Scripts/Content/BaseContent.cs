@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace App.ContentHolder
+namespace App.Content
 {
-    public class Content : ScriptableObject
+    public class BaseContent : ScriptableObject
     {
         
     }

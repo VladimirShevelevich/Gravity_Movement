@@ -1,10 +1,11 @@
-﻿using UnityEngine;
+﻿using App.Content;
+using UnityEngine;
 
 namespace App.Player
 {
-    [CreateAssetMenu(fileName = "FILENAME", menuName = "MENUNAME", order = 0)]
-    public class PlayerContent : ScriptableObject
+    [CreateAssetMenu(fileName = "PlayerContent", menuName = "Content/Player")]
+    public class PlayerContent : BaseContent
     {
-        
+        [field: SerializeField] public GameObject PlayerPrefab { get; private set; }
     }
 }

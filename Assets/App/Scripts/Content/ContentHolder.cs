@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 using VContainer;
 
-namespace App.ContentHolder
+namespace App.Content
 {
     [CreateAssetMenu(fileName = "ContentHolder", menuName = "Content/ContentHolder", order = 0)]
     public class ContentHolder : ScriptableObject
     {
-        [SerializeField] private Content[] _contents;
+        [SerializeField] private BaseContent[] _contents;
         
         public void Register(IContainerBuilder builder)
         {
