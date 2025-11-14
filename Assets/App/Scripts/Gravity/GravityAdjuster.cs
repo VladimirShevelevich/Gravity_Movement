@@ -34,27 +34,18 @@ namespace App.Gravity
 
         private void AdjustGravity(Vector3 playerPosition)
         {
-            Vector2 newGravity = Physics2D.gravity;
-            if (playerPosition.y > PlatformBounds.max.y && playerPosition.x > PlatformBounds.min.x &&
-                playerPosition.x < PlatformBounds.max.x)
-            {
-                newGravity = new Vector2(0, -_gravityContent.Gravity);
-            }
-            else if (playerPosition.y < PlatformBounds.min.y && playerPosition.x > PlatformBounds.min.x &&
-                     playerPosition.x < PlatformBounds.max.x)
-            {
-                newGravity = new Vector2(0, _gravityContent.Gravity);
-            }
-            else if (playerPosition.x > PlatformBounds.max.x && playerPosition.y > PlatformBounds.min.y &&
-                     playerPosition.y < PlatformBounds.max.y)
-            {
-                newGravity = new Vector2(-_gravityContent.Gravity, 0);
-            }
-            else if (playerPosition.x < PlatformBounds.min.x && playerPosition.y > PlatformBounds.min.y &&
-                     playerPosition.y < PlatformBounds.max.y)
-            {
-                newGravity = new Vector2(_gravityContent.Gravity, 0);
-            }
+            var newGravity = Physics2D.gravity;
+            var isInsideX = playerPosition.x > PlatformBounds.min.x && playerPosition.x < PlatformBounds.max.x;
+            var isInsideY = playerPosition.y > PlatformBounds.min.y && playerPosition.y < PlatformBounds.max.y;
+
+            if (playerPosition.y > PlatformBounds.max.y && isInsideX)
+                newGravity = Vector2.down * _gravityContent.Gravity;
+            else if (playerPosition.y < PlatformBounds.min.y && isInsideX)
+                newGravity = Vector2.up * _gravityContent.Gravity;
+            else if (playerPosition.x > PlatformBounds.max.x && isInsideY)
+                newGravity = Vector2.left * _gravityContent.Gravity;
+            else if (playerPosition.x < PlatformBounds.min.x && isInsideY)
+                newGravity = Vector2.right * _gravityContent.Gravity;
             
             Physics2D.gravity = newGravity;
         }
