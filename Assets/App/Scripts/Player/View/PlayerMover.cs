@@ -5,6 +5,7 @@ using VContainer;
 public class PlayerMover : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D _rb;
+    [SerializeField] private PlayerAnimator _playerAnimator;
     
     [Header("Ground Check")] 
     [SerializeField] private Transform _groundCheck;
@@ -25,8 +26,9 @@ public class PlayerMover : MonoBehaviour
     {
         UpdateInput();
         CheckJump();
-    }    
-    
+        UpdateAnimation();
+    }
+
     void FixedUpdate()
     {
         ApplyVelocity();
@@ -54,6 +56,12 @@ public class PlayerMover : MonoBehaviour
     {
         if (Input.GetButtonDown("Jump") && IsGrounded()) 
             _rb.velocity = new Vector2(transform.up.x, transform.up.y) * _playerContent.JumpForce;
+    }
+
+    private void UpdateAnimation()
+    {
+        var isRunning = _moveInput != 0;
+        _playerAnimator.SetRun(isRunning);
     }
 
     void Flip()
