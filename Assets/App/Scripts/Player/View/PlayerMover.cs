@@ -1,4 +1,3 @@
-using System;
 using App.Input;
 using App.Player;
 using UnityEngine;
@@ -46,11 +45,14 @@ public class PlayerMover : MonoBehaviour
 
     private void ApplyVelocity()
     {
-        var moveDirection = transform.right * (CurrentInput * _playerContent.Speed);
-        if (Physics2D.gravity.y != 0)
-            _rb.velocity = new Vector2(moveDirection.x, _rb.velocity.y);
-        else if (Physics2D.gravity.x != 0)
-            _rb.velocity = new Vector2(_rb.velocity.x, moveDirection.y);
+        var move = transform.right * (CurrentInput * _playerContent.Speed);
+        var isVerticalGravity = Physics2D.gravity.y != 0;
+        var isHorizontalGravity = Physics2D.gravity.x != 0;
+        
+        if (isVerticalGravity)
+            _rb.velocity = new Vector2(move.x, _rb.velocity.y);
+        else if (isHorizontalGravity) 
+            _rb.velocity = new Vector2(_rb.velocity.x, move.y);
     }
 
     private void CheckDirection()
