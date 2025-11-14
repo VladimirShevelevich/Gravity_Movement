@@ -15,10 +15,11 @@ namespace App.Player
             _playerContent = playerContent;
         }
 
-        public void Create()
+        public PlayerView Create()
         {
             var go = Object.Instantiate(_playerContent.PlayerPrefab);
             _objectResolver.InjectGameObject(go);
+            return go.GetComponent<PlayerView>();
         }
     }
 }

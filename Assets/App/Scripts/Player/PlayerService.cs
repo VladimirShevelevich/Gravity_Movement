@@ -1,10 +1,16 @@
-﻿using VContainer.Unity;
+﻿using UniRx;
+using UnityEngine;
+using VContainer.Unity;
 
 namespace App.Player
 {
     public class PlayerService : IInitializable
     {
+        public IReadOnlyReactiveProperty<Vector3> PlayerPosition =>
+            _playerView.CurrentPosition;
+        
         private readonly PlayerFactory _playerFactory;
+        private PlayerView _playerView;
 
         public PlayerService(PlayerFactory playerFactory)
         {
@@ -13,7 +19,7 @@ namespace App.Player
 
         public void Initialize()
         {
-            _playerFactory.Create();
+            _playerView = _playerFactory.Create();
         }
     }
 }
