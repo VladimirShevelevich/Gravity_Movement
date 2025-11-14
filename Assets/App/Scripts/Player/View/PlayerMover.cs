@@ -1,3 +1,5 @@
+using System;
+using App.Input;
 using App.Player;
 using UnityEngine;
 using VContainer;
@@ -13,21 +15,29 @@ public class PlayerMover : MonoBehaviour
     [SerializeField] private LayerMask _platformLayer;
 
     private PlayerContent _playerContent;
-    private float _moveInput;
     private bool _isFacingRight = true;
+    private IInputService _inputService;
 
     [Inject]
-    private void Construct(PlayerContent playerContent)
+    private void Construct(PlayerContent playerContent, IInputService inputService)
     {
         _playerContent = playerContent;
+        _inputService = inputService;
     }
-    
+
+    private void Start()
+    {
+        _inputService.OnJumpInput += OnJumpInput;
+    }
+
     private void Update()
     {
-        UpdateInput();
-        CheckJump();
+        CheckDirection();
         UpdateAnimation();
     }
+
+    private float CurrentInput => 
+        _inputService.HorizontalInput.Value;
 
     void FixedUpdate()
     {
@@ -36,31 +46,30 @@ public class PlayerMover : MonoBehaviour
 
     private void ApplyVelocity()
     {
-        var moveDirection = transform.right * (_moveInput * _playerContent.Speed);
+        var moveDirection = transform.right * (CurrentInput * _playerContent.Speed);
         if (Physics2D.gravity.y != 0)
             _rb.velocity = new Vector2(moveDirection.x, _rb.velocity.y);
         else if (Physics2D.gravity.x != 0)
             _rb.velocity = new Vector2(_rb.velocity.x, moveDirection.y);
     }
 
-    private void UpdateInput()
+    private void CheckDirection()
     {
-        _moveInput = Input.GetAxisRaw("Horizontal");
-        if (_moveInput > 0 && !_isFacingRight)
+        if (CurrentInput > 0 && !_isFacingRight)
             Flip();
-        else if (_moveInput < 0 && _isFacingRight)
+        else if (CurrentInput < 0 && _isFacingRight)
             Flip();
     }
 
-    private void CheckJump()
+    private void OnJumpInput()
     {
-        if (Input.GetButtonDown("Jump") && IsGrounded()) 
+        if (IsGrounded()) 
             _rb.velocity = new Vector2(transform.up.x, transform.up.y) * _playerContent.JumpForce;
     }
 
     private void UpdateAnimation()
     {
-        var isRunning = _moveInput != 0;
+        var isRunning = CurrentInput != 0;
         _playerAnimator.SetRun(isRunning);
     }
 
