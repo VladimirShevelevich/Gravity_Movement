@@ -17,9 +17,11 @@ namespace App.Input
 
         private static void RegisterInputHandlers(IContainerBuilder builder)
         {
+            builder.Register<GuiInputFactory>(Lifetime.Singleton);
             builder.UseEntryPoints(ep =>
             {
                 ep.Add<KeyboardInputHandler>();
+                ep.Add<GuiInputHandler>();
             });
         }
     }

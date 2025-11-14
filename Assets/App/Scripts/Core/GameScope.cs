@@ -12,10 +12,13 @@ namespace App.Core
     public class GameScope : LifetimeScope
     {
         [SerializeField] private ContentHolder _contentHolder;
+        [SerializeField] private Canvas _mainCanvas;
         
         protected override void Configure(IContainerBuilder builder)
         {
             _contentHolder.Register(builder);
+            builder.RegisterInstance(_mainCanvas);
+            
             PlayerInstaller.Install(builder);
             PlatformInstaller.Install(builder);
             GravityInstaller.Install(builder);
