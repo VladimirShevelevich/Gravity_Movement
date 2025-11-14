@@ -9,5 +9,6 @@ namespace App.Player
         [field: SerializeField] public GameObject PlayerPrefab { get; private set; }
         [field: SerializeField] public float Speed { get; private set; }
         [field: SerializeField] public float JumpForce { get; private set; }
+        [field: SerializeField] public float RotationSpeed { get; private set; }
     }
 }
