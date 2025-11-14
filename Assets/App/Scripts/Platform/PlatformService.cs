@@ -3,7 +3,7 @@ using VContainer.Unity;
 
 namespace App.Platform
 {
-    public class PlatformService : IInitializable
+    public class PlatformService : IInitializable, IPlatformService
     {
         public Bounds PlatformBounds =>
             _view.GetBounds();

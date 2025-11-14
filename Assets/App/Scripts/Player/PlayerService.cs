@@ -4,7 +4,7 @@ using VContainer.Unity;
 
 namespace App.Player
 {
-    public class PlayerService : IInitializable
+    public class PlayerService : IInitializable, IPlayerService
     {
         public IReadOnlyReactiveProperty<Vector3> PlayerPosition =>
             _playerView.CurrentPosition;

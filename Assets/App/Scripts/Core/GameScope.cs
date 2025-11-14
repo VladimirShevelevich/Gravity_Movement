@@ -1,4 +1,5 @@
 ﻿using App.Content;
+using App.Gravity;
 using App.Platform;
 using App.Player;
 using UnityEngine;
@@ -16,6 +17,7 @@ namespace App.Core
             _contentHolder.Register(builder);
             PlayerInstaller.Install(builder);
             PlatformInstaller.Install(builder);
+            GravityInstaller.Install(builder);
         }
     }
 }
