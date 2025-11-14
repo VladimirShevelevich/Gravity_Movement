@@ -23,27 +23,39 @@ public class PlayerMover : MonoBehaviour
     
     private void Update()
     {
-        Move();
+        UpdateInput();
+        CheckJump();
     }    
     
     void FixedUpdate()
     {
-        _rb.velocity = new Vector2(_moveInput * _playerContent.Speed, _rb.velocity.y);
+        ApplyVelocity();
     }
 
-    private void Move()
+    private void ApplyVelocity()
+    {
+        var moveDirection = transform.right * (_moveInput * _playerContent.Speed);
+        if (Physics2D.gravity.y != 0)
+            _rb.velocity = new Vector2(moveDirection.x, _rb.velocity.y);
+        else if (Physics2D.gravity.x != 0)
+            _rb.velocity = new Vector2(_rb.velocity.x, moveDirection.y);
+    }
+
+    private void UpdateInput()
     {
         _moveInput = Input.GetAxisRaw("Horizontal");
-
-        if (Input.GetButtonDown("Jump") && IsGrounded()) 
-            _rb.velocity = new Vector2(_rb.velocity.x, _playerContent.JumpForce);
-
         if (_moveInput > 0 && !_isFacingRight)
             Flip();
         else if (_moveInput < 0 && _isFacingRight)
             Flip();
-    }    
-    
+    }
+
+    private void CheckJump()
+    {
+        if (Input.GetButtonDown("Jump") && IsGrounded()) 
+            _rb.velocity = new Vector2(transform.up.x, transform.up.y) * _playerContent.JumpForce;
+    }
+
     void Flip()
     {
         _isFacingRight = !_isFacingRight;
