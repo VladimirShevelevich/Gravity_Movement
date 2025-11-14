@@ -9,9 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 767ee9ac2679475aa711bb9bb8370c8a, type: 3}
-  m_Name: ContentHolder
+  m_Script: {fileID: 11500000, guid: 86e56f58604a41ac994e3ca2f649ad5e, type: 3}
+  m_Name: PlatformContent
   m_EditorClassIdentifier: 
-  _contents:
-  - {fileID: 11400000, guid: 113554ef91a727a49a1b6e73fd911150, type: 2}
-  - {fileID: 11400000, guid: 34208480e6983af4b9827d60119970bb, type: 2}
+  <PlatformPrefab>k__BackingField: {fileID: 3297218240619276013, guid: b5bb1f0e48b61424b972b522fdca61e1, type: 3}

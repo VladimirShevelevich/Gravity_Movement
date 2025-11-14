@@ -1,4 +1,5 @@
 ﻿using App.Content;
+using App.Platform;
 using App.Player;
 using UnityEngine;
 using VContainer;
@@ -17,6 +18,7 @@ namespace App.Core
             {
                 ep.Add<PlayerFactory>();
             });
+            PlatformInstaller.Install(builder);
         }
     }
 }
