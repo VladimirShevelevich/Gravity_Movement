@@ -14,10 +14,7 @@ namespace App.Core
         protected override void Configure(IContainerBuilder builder)
         {
             _contentHolder.Register(builder);
-            builder.UseEntryPoints(ep =>
-            {
-                ep.Add<PlayerFactory>();
-            });
+            PlayerInstaller.Install(builder);
             PlatformInstaller.Install(builder);
         }
     }
